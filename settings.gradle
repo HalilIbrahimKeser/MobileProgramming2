@@ -1,2 +1,2 @@
+include ':lab6_1_trivia_quiz'
 include ':app'
-include ':build.gradle'
