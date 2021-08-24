@@ -1,2 +1,3 @@
+include ':2_sensors'
 include ':lab6_1_trivia_quiz'
 include ':app'

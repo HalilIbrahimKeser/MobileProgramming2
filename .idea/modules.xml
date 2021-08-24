@@ -3,6 +3,7 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/.idea/mobil-programmering-2.iml" filepath="$PROJECT_DIR$/.idea/mobil-programmering-2.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/2_sensors/mobil-programmering-2.2_sensors.iml" filepath="$PROJECT_DIR$/.idea/modules/2_sensors/mobil-programmering-2.2_sensors.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/mobil-programmering-2.app.iml" filepath="$PROJECT_DIR$/.idea/modules/app/mobil-programmering-2.app.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/lab6_1_trivia_quiz/mobil-programmering-2.lab6_1_trivia_quiz.iml" filepath="$PROJECT_DIR$/.idea/modules/lab6_1_trivia_quiz/mobil-programmering-2.lab6_1_trivia_quiz.iml" />
     </modules>

@@ -1,0 +1,13 @@
+<resources>
+    <string name="app_name">2_sensors</string>
+
+    <!-- Proximity and light sensor output. The %1$.2f part is a placeholder
+     that will be filled in at runtime:
+     %1 is the value to replace
+     $.2f says the value is a float, with two decimal places. -->
+    <string name="label_proximity">Proximity Sensor: %1$.2f</string>
+    <string name="label_light">Light Sensor: %1$.2f</string>
+
+    <!-- error message if sensors are not available. -->
+    <string name="error_no_sensor">No sensor</string>
+</resources>
