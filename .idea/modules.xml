@@ -3,6 +3,7 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/.idea/mobil-programmering-2.iml" filepath="$PROJECT_DIR$/.idea/mobil-programmering-2.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/build.gradle/mobil-programmering-2.build.gradle.iml" filepath="$PROJECT_DIR$/.idea/modules/build.gradle/mobil-programmering-2.build.gradle.iml" />
     </modules>
   </component>
 </project>
