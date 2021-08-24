@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+        android:id="@+id/buttonInfo"
+        android:icon="@drawable/ic_baseline_info_24"
+        app:showAsAction="ifRoom"
+        android:title="@string/menuTitleInfo" />
+    <item
+        android:id="@+id/buttonSettings"
+        android:icon="@drawable/ic_baseline_settings_24"
+        android:onClick="settingsActivity"
+        app:showAsAction="ifRoom|withText"
+        android:title="@string/menuTitleSettings">
+    </item>
+</menu>

@@ -1,0 +1,35 @@
+<resources>
+    <string name="app_name">TriviaQuiz</string>
+    <string name="button_start">Ny Quiz - Fortsett</string>
+    <string name="button_null">Nullstill</string>
+    <string name="title_activity_settings">SettingsActivity</string>
+    <string name="title_activity_quiz">QuizActivity</string>
+    <string name="menuTitleSettings">Settings</string>
+    <string name="menuTitleInfo">menuTitleInfo</string>
+
+
+    <string name="messages_header">Quiz Instillinger</string>
+    <string name="num">Antall spørsmål: </string>
+    <string name="category">Kategorier: </string>
+    <string name="diff">Vanskelighetsgrad: </string>
+    <string name="type">Type: </string>
+
+
+    <string name="hjem">Hjem</string>
+    <string name="image">image</string>
+    <string name="str_trivia_quiz_sp_rsm_l">Trivia Quiz Spørsmål</string>
+    <string name="g_tilbake">Gå tilbake</string>
+    <string name="str_question1">Svareksempel dette er et svar</string>
+    <string name="str_spoersmoel">Spørsmål dette er spørsmål</string>
+    <string name="str_question1of10">Spørsmål 1/10</string>
+    <string name="str_num">5</string>
+    <string name="str_description">This is a picture</string>
+    <string name="fasit">Fasit</string>
+    <string name="Resultater">Resultater</string>
+    <string name="her_kommer_korrekte_svar">Her kommer korrekte svar</string>
+    <string name="resultat_0_0">Resultat: 0/0</string>
+    <string name="karakter_f">Karakter: F</string>
+    <string name="se_fasit">Se fasit?</string>
+
+
+</resources>

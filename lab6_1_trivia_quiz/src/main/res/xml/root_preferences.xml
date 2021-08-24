@@ -1,0 +1,41 @@
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <PreferenceCategory app:title="@string/messages_header">
+
+        <SeekBarPreference
+            app:defaultValue="3"
+            app:key="num"
+            app:min="1"
+            android:max="50"
+            app:showSeekBarValue="true"
+            app:title="@string/num" />
+
+        <ListPreference
+            app:defaultValue="9"
+            android:entries="@array/cate_titles"
+            android:entryValues="@array/cate_values"
+            android:key="category"
+            android:summary="Trykk for å se en liste kategorier å velge mellom."
+            android:title="Kategorier:" />
+
+        <ListPreference
+            app:defaultValue="easy"
+            app:key="diff"
+            android:summary="Trykk for å se en liste med vanskeliggrader å velge mellom."
+            android:entries="@array/diff_titles"
+            android:entryValues="@array/diff_values"
+            app:title="@string/diff" />
+
+
+        <ListPreference
+            app:defaultValue="multiple"
+            app:key="type"
+            android:summary="Trykk for å se en liste med type spørsmål å velge mellom."
+            android:entries="@array/type_titles"
+            android:entryValues="@array/type_values"
+            app:title="@string/type" />
+
+    </PreferenceCategory>
+
+</PreferenceScreen>

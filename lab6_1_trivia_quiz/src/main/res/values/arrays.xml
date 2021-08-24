@@ -1,0 +1,80 @@
+<resources>
+    <string-array name="cate_titles">
+        <item>Alle kategorier</item>
+        <item>Generell kunnskap</item>
+        <item>Underholdning: Bøker</item>
+        <item>Underholdning: Filmer</item>
+        <item>Underholdning: Musikk</item>
+        <item>Underholdning: Musikaler og Teater</item>
+        <item>Underholdning: TV</item>
+        <item>Underholdning: Dataspill</item>
+        <item>Underholdning: Brettspill</item>
+        <item>Vitenskap og Natur</item>
+        <item>Vitenskap: Datamaskiner</item>
+        <item>Vitenskap: Matematikk</item>
+        <item>Mytologi</item>
+        <item>Sport</item>
+        <item>Geografi</item>
+        <item>Historie</item>
+        <item>Politikk</item>
+        <item>Kunst</item>
+        <item>Kjendiser</item>
+        <item>Dyr</item>
+        <item>Kjøretøy</item>
+        <item>Underholdning: Tegneserier</item>
+        <item>Vitenskap: Dingser</item>
+        <item>Underholdning: Anime og Manga</item>
+        <item>Underholdning: Tegnefilmer og Animasjon</item>
+    </string-array>
+    <string-array name="cate_values">
+        <item></item>
+        <item>9</item>
+        <item>10</item>
+        <item>11</item>
+        <item>12</item>
+        <item>13</item>
+        <item>14</item>
+        <item>15</item>
+        <item>16</item>
+        <item>17</item>
+        <item>18</item>
+        <item>19</item>
+        <item>20</item>
+        <item>21</item>
+        <item>22</item>
+        <item>23</item>
+        <item>24</item>
+        <item>25</item>
+        <item>26</item>
+        <item>27</item>
+        <item>28</item>
+        <item>29</item>
+        <item>30</item>
+        <item>31</item>
+        <item>32</item>
+    </string-array>
+
+    <string-array name="diff_titles">
+        <item>Lett</item>
+        <item>Medium</item>
+        <item>Vanskelig</item>
+        <item>Alle</item>
+    </string-array>
+    <string-array name="diff_values">
+        <item>easy</item>
+        <item>medium</item>
+        <item>hard</item>
+        <item></item>
+    </string-array>
+
+    <string-array name="type_titles">
+        <item>Flervalgs</item>
+        <item>Sant/Usant</item>
+        <item>Alle</item>
+    </string-array>
+    <string-array name="type_values">
+        <item>multiple</item>
+        <item>boolean</item>
+        <item></item>
+    </string-array>
+</resources>

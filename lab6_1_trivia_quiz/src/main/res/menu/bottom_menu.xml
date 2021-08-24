@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/hjem"
+        android:icon="@drawable/ic_baseline_home_24"
+        android:title="@string/hjem" />
+    <item
+        android:id="@+id/fasit"
+        android:icon="@drawable/ic_baseline_question_answer_24"
+        android:title="@string/Resultater" />
+</menu>

@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity">
+
+    <androidx.fragment.app.FragmentContainerView
+        android:id="@+id/fragment_container"
+        android:layout_width="415dp"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/quizToolbar1" >
+
+    </androidx.fragment.app.FragmentContainerView>
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="101dp"
+        android:layout_height="100dp"
+        android:layout_marginTop="16dp"
+        android:contentDescription="@string/image"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/quizToolbar1"
+        app:srcCompat="@mipmap/logo_background" />
+
+    <Button
+        android:id="@+id/buttonNewGame"
+        android:layout_width="225dp"
+        android:layout_height="74dp"
+        android:layout_marginTop="8dp"
+        android:background="@drawable/buttom_background"
+        android:onClick="startGame"
+        android:paddingBottom="15dp"
+        android:text="@string/button_start"
+        android:textAlignment="center"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageView" />
+
+    <Button
+        android:id="@+id/buttonNull"
+        android:layout_width="226dp"
+        android:layout_height="65dp"
+        android:layout_marginTop="8dp"
+        android:background="@drawable/buttom_background"
+        android:onClick="resetGame"
+        android:paddingBottom="15dp"
+        android:text="@string/button_null"
+        android:textAlignment="center"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/buttonNewGame" />
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/quizToolbar1"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="@color/teal_700"
+        android:elevation="5dp"
+        android:minHeight="?attr/actionBarSize"
+        android:theme="@style/Theme.AppCompat.Light.NoActionBar"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:popupTheme="@style/Theme.AppCompat.Light" />
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:text="Alle spørsmål hentes fra åpen database på nettsiden: https://opentdb.com. Spørsmålene er på engelsk."
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/buttonNull" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
