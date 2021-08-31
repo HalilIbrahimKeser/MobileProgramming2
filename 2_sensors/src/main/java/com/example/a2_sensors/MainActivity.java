@@ -10,7 +10,6 @@ import android.hardware.SensorEvent;
 import android.hardware.SensorManager;
 import android.hardware.SensorEventListener;
 
-import android.os.Bundle;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -22,8 +21,24 @@ public class MainActivity extends AppCompatActivity
     private SensorManager mSensorManager;
 
     // Proximity and light sensors, as retrieved from the sensor manager.
-    private Sensor mSensorProximity;
-    private Sensor mSensorLight;
+    private Sensor mProximitySensor;
+    private Sensor mLightsSensor;
+
+    private Sensor m3AxisAccelorometerSensor;
+    private Sensor m3axisGyroscopeSensor;
+    private Sensor m3axisMagneticFieldSensor;
+    private Sensor mGoldfishOrientationSensor;
+    private Sensor mAmbientTemperatureSensor;
+
+    private Sensor mPressureSensor;
+    private Sensor mHumiditySensor;
+    private Sensor mHingeSensor;
+    private Sensor mGameRotationVectorSensor;
+    private Sensor mGeoMagRotationVectorSensor;
+    private Sensor mGravitySensor;
+    private Sensor mLinearAccelerationSensor;
+    private Sensor mRotationVectorSensor;
+    private Sensor mOrientationSensor;
 
     // TextViews to display current sensor values.
     private TextView mTextSensorLight;
@@ -45,17 +60,17 @@ public class MainActivity extends AppCompatActivity
         // Get light and proximity sensors from the sensor manager.
         // The getDefaultSensor() method returns null if the sensor
         // is not available on the device.
-        mSensorProximity = mSensorManager.getDefaultSensor(
+        mProximitySensor = mSensorManager.getDefaultSensor(
                 Sensor.TYPE_PROXIMITY);
-        mSensorLight = mSensorManager.getDefaultSensor(Sensor.TYPE_LIGHT);
+        mLightsSensor = mSensorManager.getDefaultSensor(Sensor.TYPE_LIGHT);
 
         // Get the error message from string resources.
         String sensor_error = getResources().getString(R.string.error_no_sensor);
 
         // If either mSensorLight or mSensorProximity are null, those sensors
         // are not available in the device.  Set the text to the error message
-        if (mSensorLight == null) { mTextSensorLight.setText(sensor_error); }
-        if (mSensorProximity == null) {
+        if (mLightsSensor == null) { mTextSensorLight.setText(sensor_error); }
+        if (mProximitySensor == null) {
             mTextSensorProximity.setText(sensor_error);
         }
     }
@@ -70,12 +85,12 @@ public class MainActivity extends AppCompatActivity
         // Check to ensure sensors are available before registering listeners.
         // Both listeners are registered with a "normal" amount of delay
         // (SENSOR_DELAY_NORMAL)
-        if (mSensorProximity != null) {
-            mSensorManager.registerListener(this, mSensorProximity,
+        if (mProximitySensor != null) {
+            mSensorManager.registerListener(this, mProximitySensor,
                     SensorManager.SENSOR_DELAY_NORMAL);
         }
-        if (mSensorLight != null) {
-            mSensorManager.registerListener(this, mSensorLight,
+        if (mLightsSensor != null) {
+            mSensorManager.registerListener(this, mLightsSensor,
                     SensorManager.SENSOR_DELAY_NORMAL);
         }
     }

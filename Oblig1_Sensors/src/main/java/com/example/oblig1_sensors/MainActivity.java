@@ -13,7 +13,7 @@ import android.widget.TextView;
 import com.example.oblig1_sensors.databinding.MainActivityBinding;
 import com.example.oblig1_sensors.ui.main.MainFragment;
 
-public class MainActivity extends AppCompatActivity implements SensorEventListener {
+public class MainActivity extends AppCompatActivity {
 
     private MainActivityBinding binding;
 
@@ -31,11 +31,14 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
     private Sensor mHumiditySensor;
     private Sensor mHingeSensor;
     private Sensor mGameRotationVectorSensor;
-    private Sensor mGeoMagneticRotationSensor;
+    private Sensor mGeoMagRotationVectorSensor;
     private Sensor mGravitySensor;
     private Sensor mLinearAccelerationSensor;
     private Sensor mRotationVectorSensor;
     private Sensor mOrientationSensor;
+//
+    private TextView mTextSensorLight = binding.tvTest;
+    private TextView mTextSensorProximity = binding.tvTest2;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,45 +50,24 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
                     .commitNow();
         }
 
-        // Initialize all view variables.
-        mTextSensorLight = binding.label_light;
-        mTextSensorProximity = (TextView) findViewById(R.id.label_proximity);
+        mSensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
 
-        // Get an instance of the sensor manager.
-        mSensorManager = (SensorManager) getSystemService(
-                Context.SENSOR_SERVICE);
+        mProximitySensor = mSensorManager.getDefaultSensor(Sensor.TYPE_PROXIMITY);
+        mLightsSensor = mSensorManager.getDefaultSensor(Sensor.TYPE_LIGHT);
 
-        // Get light and proximity sensors from the sensor manager.
-        // The getDefaultSensor() method returns null if the sensor
-        // is not available on the device.
-        mSensorProximity = mSensorManager.getDefaultSensor(
-                Sensor.TYPE_PROXIMITY);
-        mSensorLight = mSensorManager.getDefaultSensor(Sensor.TYPE_LIGHT);
-
-        // Get the error message from string resources.
-        String sensor_error = getResources().getString(R.string.error_no_sensor);
-
-        // If either mSensorLight or mSensorProximity are null, those sensors
-        // are not available in the device.  Set the text to the error message
-        if (mSensorLight == null) { mTextSensorLight.setText(sensor_error); }
-        if (mSensorProximity == null) {
-            mTextSensorProximity.setText(sensor_error);
-        }
 
     }
 
     @Override
-    public void onSensorChanged(SensorEvent event) {
+    protected void onStart() {
+        super.onStart();
 
     }
 
     @Override
-    public void onAccuracyChanged(Sensor sensor, int accuracy) {
-
+    protected void onStop() {
+        super.onStop();
     }
 
-    @Override
-    public void onPointerCaptureChanged(boolean hasCapture) {
 
-    }
 }

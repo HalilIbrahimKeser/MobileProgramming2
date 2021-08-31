@@ -1,3 +1,6 @@
 <resources>
-    <string name="app_name">Oblig1_Sensors</string>
+    <string name="app_name">Oblig 1 Sensors</string>
+    <string name="error_no_sensor">\"No sensor available\"</string>
+    <string name="label_proximity">Proximity Sensor: %1$.2f</string>
+    <string name="label_light">Light Sensor: %1$.2f</string>
 </resources>
