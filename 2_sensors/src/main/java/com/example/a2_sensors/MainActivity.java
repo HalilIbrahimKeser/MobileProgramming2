@@ -15,11 +15,6 @@ import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-/**
- * SensorListeners demonstrates how to gain access to sensors (here, the light
- * and proximity sensors), how to register sensor listeners, and how to
- * handle sensor events.
- */
 public class MainActivity extends AppCompatActivity
         implements SensorEventListener {
 

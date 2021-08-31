@@ -11,6 +11,7 @@
           <set>
             <option value="$PROJECT_DIR$" />
             <option value="$PROJECT_DIR$/2_sensors" />
+            <option value="$PROJECT_DIR$/Oblig1_Sensors" />
             <option value="$PROJECT_DIR$/app" />
             <option value="$PROJECT_DIR$/lab6_1_trivia_quiz" />
           </set>
