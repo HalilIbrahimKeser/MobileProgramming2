@@ -37,8 +37,7 @@ public class MainActivity extends AppCompatActivity {
     private Sensor mRotationVectorSensor;
     private Sensor mOrientationSensor;
 //
-    private TextView mTextSensorLight = binding.tvTest;
-    private TextView mTextSensorProximity = binding.tvTest2;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
