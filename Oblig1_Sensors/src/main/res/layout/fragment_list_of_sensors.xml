@@ -30,9 +30,12 @@
         android:id="@+id/btnGoBack"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:backgroundTint="#009688"
+        android:contextClickable="true"
         android:onClick="goBack"
         android:text="Go back"
         android:textAlignment="viewStart"
-        android:textAllCaps="false" />
+        android:textAllCaps="false"
+        android:textColor="#FFFFFF" />
 
 </FrameLayout>
