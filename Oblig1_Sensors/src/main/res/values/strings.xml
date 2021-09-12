@@ -16,6 +16,8 @@
     <string name="sensors_fromlight_sensor">Sensors fromLight sensor:</string>
     <string name="sensors_from_proximity_sensors">Sensors from Proximity sensors:</string>
     <string name="sensors_from_gyroscope_sensors">Sensors from Gyroscope sensors:</string>
+    <string name="sensors_from_game_vector">Sensors from Game Vector sensors:</string>
+
     <string name="list_of_all_sensors_on_my_device">List of all sensors on my device</string>
     <string name="halil_ibrahim_keser_mobile_programming_assignment_1">Halil Ibrahim Keser - Mobile Programming - Assignment 1</string>
 

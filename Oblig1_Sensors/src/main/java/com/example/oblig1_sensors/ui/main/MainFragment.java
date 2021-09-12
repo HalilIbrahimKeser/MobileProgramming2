@@ -2,42 +2,40 @@ package com.example.oblig1_sensors.ui.main;
 //https://github.com/google-developer-training/android-advanced/blob/master/SensorListeners/app/src/main/java/com/example/android/sensorlisteners/MainActivity.java
 //Bygget på koden ovenfor fra github
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
 import android.os.Bundle;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.Switch;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.TextView;
-import android.widget.Toast;
-
 import com.example.oblig1_sensors.R;
 import com.example.oblig1_sensors.databinding.MainFragmentBinding;
 
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
+import java.io.File;
+import java.io.FileWriter;
 import java.io.IOException;
-import java.util.Objects;
-
-import static android.content.Context.MODE_PRIVATE;
 
 public class MainFragment extends Fragment implements SensorEventListener {
 
-    private MainViewModel mViewModel;
-    private MainFragmentBinding binding;
     Context context;
-
-    private SensorManager mSensorManager;
+    private MainFragmentBinding binding;
 
     private static final String FILE_NAME = "sensorsLog.txt";
+    File file;
+    FileWriter stream;
+
+    private SensorManager mSensorManager;
 
     // BASE SENSORS ------------------------
     private Sensor mLightsSensor;
@@ -55,8 +53,8 @@ public class MainFragment extends Fragment implements SensorEventListener {
     // COMPOSITE SENSORS ------------------
     private Sensor mOrientationSensor;
     private Sensor mGyroscopeSensor;
-    // disse tester jeg ved annen anleding
     private Sensor mGameRotationVectorSensor;
+    // disse tester jeg ved annen anleding
     private Sensor mGeoMagRotationVectorSensor;
     private Sensor mGravitySensor;
 
@@ -64,10 +62,15 @@ public class MainFragment extends Fragment implements SensorEventListener {
     float[] mGravity;
     float[] mGeomagnetic;
 
-
     private TextView mTextLightsSensor, mTextProximitySensor, mTextAmbientTemperatureSensor,
             mTextMagneticFieldSensor, mTextPressureSensor, mTextHumiditySensor,
-            mTextOrientationSensor, mTextAccelerometerSensor, mTextGyroscopeSensor;
+            mTextOrientationSensor, mTextAccelerometerSensor, mTextGyroscopeSensor,
+            mTextGameRotatiomVectorSensor;
+    @SuppressLint("UseSwitchCompatOrMaterialCode")
+    public Switch mSwLight, mSwProximity, mSwTemperature,
+            mSwMagneticField, mSwPressure, mSwHumidity,
+            mSwOrientation, mSwAccelerometer,mSwGyroscope, mSwGameRotation;
+
 
     public static MainFragment newInstance() {
         return new MainFragment();
@@ -87,6 +90,9 @@ public class MainFragment extends Fragment implements SensorEventListener {
 
         context = view.getContext();
 
+        File path = context.getFilesDir();
+        file = new File(path, FILE_NAME);
+
         mTextLightsSensor = binding.tvLight;
         mTextProximitySensor = binding.tvProximity;
         mTextAmbientTemperatureSensor = binding.tvTemperaure;
@@ -96,12 +102,24 @@ public class MainFragment extends Fragment implements SensorEventListener {
         mTextOrientationSensor = binding.tvOrientation;
         mTextAccelerometerSensor = binding.tvAccelorometer;
         mTextGyroscopeSensor = binding.tvGyroscope;
+        mTextGameRotatiomVectorSensor = binding.tvGameRotation;
+
+        mSwLight = binding.swLight;
+        mSwProximity = binding.swProximity;
+        mSwTemperature = binding.swTemperature;
+        mSwMagneticField = binding.swMagneticField;
+        mSwPressure = binding.swPressure;
+        mSwHumidity = binding.swHummidity;
+        mSwOrientation = binding.swOrientation;
+        mSwAccelerometer = binding.swAccelerometer;
+        mSwGyroscope = binding.swGyroscope;
+        mSwGameRotation = binding.swGameVector;
 
         mSensorManager = (SensorManager) requireActivity().getSystemService(Context.SENSOR_SERVICE);
 
         //BASE SENSORS
-        mProximitySensor = mSensorManager.getDefaultSensor(Sensor.TYPE_PROXIMITY);
         mLightsSensor = mSensorManager.getDefaultSensor(Sensor.TYPE_LIGHT);
+        mProximitySensor = mSensorManager.getDefaultSensor(Sensor.TYPE_PROXIMITY);
         mAmbientTemperatureSensor = mSensorManager.getDefaultSensor(Sensor.TYPE_AMBIENT_TEMPERATURE);
         mMagneticFieldSensor = mSensorManager.getDefaultSensor(Sensor.TYPE_MAGNETIC_FIELD);
         mPressureSensor = mSensorManager.getDefaultSensor(Sensor.TYPE_PRESSURE);
@@ -111,6 +129,7 @@ public class MainFragment extends Fragment implements SensorEventListener {
         //COMPOSITE SENSORS
         //mOrientationSensor gets calculated by data from Magnetic field and Accelerometer in the method updateOrientation()
         mGyroscopeSensor = mSensorManager.getDefaultSensor(Sensor.TYPE_GYROSCOPE);
+        mGameRotationVectorSensor = mSensorManager.getDefaultSensor(Sensor.TYPE_GAME_ROTATION_VECTOR);
 
         checkErrorOfSensorNorFound();
     }
@@ -122,53 +141,78 @@ public class MainFragment extends Fragment implements SensorEventListener {
 
         switch (sensorType) {
             case Sensor.TYPE_LIGHT:
-                mTextLightsSensor.setText(sensorResult + " lux");
-                writeToFile(sensorResult);
+                if (mSwLight.isChecked()) {
+                    mTextLightsSensor.setText(sensorResult + " lux");
+                    writeToFile(sensorResult);
+                }
                 break;
 
             case Sensor.TYPE_PROXIMITY:
-                mTextProximitySensor.setText(sensorResult + " cm");
-                writeToFile(sensorResult);
+                if (mSwProximity.isChecked()) {
+                    mTextProximitySensor.setText(sensorResult + " cm");
+                    writeToFile(sensorResult);
+                }
                 break;
 
             case Sensor.TYPE_AMBIENT_TEMPERATURE:
-                mTextAmbientTemperatureSensor.setText(sensorResult + " C°");
-                writeToFile(sensorResult);
+                if (mSwTemperature.isChecked()) {
+                    mTextAmbientTemperatureSensor.setText(sensorResult + " C°");
+                    writeToFile(sensorResult);
+                }
                 break;
 
             case Sensor.TYPE_MAGNETIC_FIELD:
-                String sensorResultMagneticFiels = sensorEvent.sensor.getName() + ": \n" + "North: " +
-                        sensorEvent.values[0] + ",  East: " + sensorEvent.values[1] + ",  Up: " + sensorEvent.values[2];
-                mTextMagneticFieldSensor.setText(sensorResultMagneticFiels);
-                mGeomagnetic = sensorEvent.values;
-                updateOrientation(mGravity, mGeomagnetic);
-                writeToFile(sensorResultMagneticFiels);
+                if (mSwMagneticField.isChecked()) {
+                    String sensorResultMagneticFiels = sensorEvent.sensor.getName() + ": \n" + "North: " +
+                            sensorEvent.values[0] + ",  East: " + sensorEvent.values[1] + ",  Up: " + sensorEvent.values[2];
+                    mTextMagneticFieldSensor.setText(sensorResultMagneticFiels);
+                    mGeomagnetic = sensorEvent.values;
+                    updateOrientation(mGravity, mGeomagnetic);
+                    writeToFile(sensorResultMagneticFiels);
+                }
                 break;
 
             case Sensor.TYPE_PRESSURE:
-                mTextPressureSensor.setText(sensorResult + " hPa");
-                writeToFile(sensorResult);
+                if (mSwPressure.isChecked()) {
+                    mTextPressureSensor.setText(sensorResult + " hPa");
+                    writeToFile(sensorResult);
+                }
                 break;
 
             case Sensor.TYPE_RELATIVE_HUMIDITY:
-                mTextHumiditySensor.setText(sensorResult + " %");
-                writeToFile(sensorResult);
+                if (mSwHumidity.isChecked()) {
+                    mTextHumiditySensor.setText(sensorResult + " %");
+                    writeToFile(sensorResult);
+                }
                 break;
 
             case Sensor.TYPE_ACCELEROMETER:
-                String sensorResultAccelerometer = sensorEvent.sensor.getName() + ": \n" + "X: " +
-                        sensorEvent.values[0] + " m/s2,  Y: " + sensorEvent.values[1] + " m/s2,  Z: " + sensorEvent.values[2] + " m/s2";
-                mTextAccelerometerSensor.setText(sensorResultAccelerometer);
-                mGravity = sensorEvent.values;
-                updateOrientation(mGravity, mGeomagnetic);
-                writeToFile(sensorResult);
+                if (mSwAccelerometer.isChecked()) {
+                    String sensorResultAccelerometer = sensorEvent.sensor.getName() + ": \n" + "X: " +
+                            sensorEvent.values[0] + " m/s2,  Y: " + sensorEvent.values[1] + " m/s2,  Z: " + sensorEvent.values[2] + " m/s2";
+                    mTextAccelerometerSensor.setText(sensorResultAccelerometer);
+                    mGravity = sensorEvent.values;
+                    updateOrientation(mGravity, mGeomagnetic);
+                    writeToFile(sensorResult);
+                }
                 break;
 
             case Sensor.TYPE_GYROSCOPE:
-                String sensorGyroscope = sensorEvent.sensor.getName() + ": \n" + "X: " +
-                        sensorEvent.values[0] + ",   Y: " + sensorEvent.values[1] + ",   Z: " + sensorEvent.values[2] + " ";
-                mTextGyroscopeSensor.setText(sensorGyroscope);
-                writeToFile(sensorResult);
+                if (mSwGyroscope.isChecked()) {
+                    String sensorGyroscope = sensorEvent.sensor.getName() + ": \n" + "X: " +
+                            sensorEvent.values[0] + ",   Y: " + sensorEvent.values[1] + ",   Z: " + sensorEvent.values[2] + " ";
+                    mTextGyroscopeSensor.setText(sensorGyroscope);
+                    writeToFile(sensorResult);
+                }
+                break;
+
+            case Sensor.TYPE_GAME_ROTATION_VECTOR:
+                if (mSwGameRotation.isChecked()) {
+                    String stringSensorGameRotation = sensorEvent.sensor.getName() + ": \n" + "1: " +
+                            sensorEvent.values[0] + ",   2: " + sensorEvent.values[1] + ",   3: " + sensorEvent.values[2] + " ,   4: " + sensorEvent.values[3] ;
+                    mTextGameRotatiomVectorSensor.setText(stringSensorGameRotation);
+                    writeToFile(sensorResult);
+                }
                 break;
             default:
                 // do nothing
@@ -177,15 +221,17 @@ public class MainFragment extends Fragment implements SensorEventListener {
 
     private void updateOrientation(float[] mGravity, float[] mGeomagnetic) {
         // Orientation coputed by accelorometer and magnetic field, since TYPE_ORIENTATION is deprecated.
-        if (mGravity != null && mGeomagnetic != null) {
-            float[] R = new float[9];
-            float[] I = new float[9];
-            boolean success = SensorManager.getRotationMatrix(R, I, mGravity, mGeomagnetic);
-            if (success) {
-                float[] orientation = new float[3];
-                SensorManager.getOrientation(R, orientation);
-                // orientation contains: azimut, pitch and roll
-                mTextOrientationSensor.setText("Azimuth: " + orientation[0] + ", Pitch: " + orientation[1] + ", Roll: " + orientation[2]);
+        if(mSwOrientation.isChecked()) {
+            if (mGravity != null && mGeomagnetic != null) {
+                float[] R = new float[9];
+                float[] I = new float[9];
+                boolean success = SensorManager.getRotationMatrix(R, I, mGravity, mGeomagnetic);
+                if (success) {
+                    float[] orientation = new float[3];
+                    SensorManager.getOrientation(R, orientation);
+                    // orientation contains: azimut, pitch and roll
+                    mTextOrientationSensor.setText("Azimuth: " + orientation[0] + ", Pitch: " + orientation[1] + ", Roll: " + orientation[2]);
+                }
             }
         }
     }
@@ -193,7 +239,11 @@ public class MainFragment extends Fragment implements SensorEventListener {
     @Override
     public void onStart() {
         super.onStart();
+        //LISTENERS OF SENSORS
+        registerListenerSensors();
+    }
 
+    private void registerListenerSensors() {
         //LISTENERS OF SENSORS
         if (mLightsSensor != null) {
             mSensorManager.registerListener(this, mLightsSensor, SensorManager.SENSOR_DELAY_NORMAL);
@@ -218,6 +268,9 @@ public class MainFragment extends Fragment implements SensorEventListener {
         }
         if (mGyroscopeSensor != null) {
             mSensorManager.registerListener(this, mGyroscopeSensor, SensorManager.SENSOR_DELAY_NORMAL);
+        }
+        if (mGameRotationVectorSensor != null) {
+            mSensorManager.registerListener(this, mGameRotationVectorSensor, SensorManager.SENSOR_DELAY_NORMAL);
         }
     }
 
@@ -248,25 +301,23 @@ public class MainFragment extends Fragment implements SensorEventListener {
         if (mGyroscopeSensor == null) {
             mTextGyroscopeSensor.setText(sensor_error);
         }
+        if (mGameRotationVectorSensor == null) {
+            mTextGameRotatiomVectorSensor.setText(sensor_error);
+        }
     }
 
     public void writeToFile(String textToWrite) {
-        FileOutputStream fileOutputStream = null;
         try {
-            fileOutputStream = requireActivity().openFileOutput(FILE_NAME, MODE_PRIVATE);
-            fileOutputStream.write(textToWrite.getBytes());
-            fileOutputStream.write("\n".getBytes());
-
-
+            stream = new FileWriter(file, true);
+            stream.write(textToWrite);
+            stream.write("\n");
         } catch (IOException e) {
             e.printStackTrace();
-        } finally {
-            if (fileOutputStream != null) {
-                try {
-                    fileOutputStream.close();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
+        }finally {
+            try {
+                stream.close();
+            } catch (IOException e) {
+                e.printStackTrace();
             }
         }
     }
@@ -285,8 +336,7 @@ public class MainFragment extends Fragment implements SensorEventListener {
     @Override
     public void onResume() {
         super.onResume();
-        mSensorManager.registerListener(this, mProximitySensor,
-                SensorManager.SENSOR_DELAY_NORMAL);
+        registerListenerSensors();
     }
 
     public void onPause() {
@@ -298,5 +348,21 @@ public class MainFragment extends Fragment implements SensorEventListener {
     public void onStop() {
         super.onStop();
         mSensorManager.unregisterListener(this);
+
+        //Slett innhold i fil, styres ikke fra programmet
+        boolean slettInnholdIFil = false;
+        if (slettInnholdIFil) {
+            try {
+                stream = new FileWriter(file, false );
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            try {
+                stream.write("Slettett av programmet");
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+
     }
 }
