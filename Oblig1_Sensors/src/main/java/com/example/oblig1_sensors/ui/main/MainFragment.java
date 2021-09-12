@@ -229,7 +229,7 @@ public class MainFragment extends Fragment implements SensorEventListener {
                 if (success) {
                     float[] orientation = new float[3];
                     SensorManager.getOrientation(R, orientation);
-                    // orientation contains: azimut, pitch and roll
+                    // orientation contains: azimuth, pitch and roll
                     mTextOrientationSensor.setText("Azimuth: " + orientation[0] + ", Pitch: " + orientation[1] + ", Roll: " + orientation[2]);
                 }
             }

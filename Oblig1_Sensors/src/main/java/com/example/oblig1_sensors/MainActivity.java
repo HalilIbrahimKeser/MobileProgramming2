@@ -14,9 +14,7 @@ public class MainActivity extends AppCompatActivity {
 
     private MainActivityBinding binding;
 
-//    //Sensors
     private SensorManager mSensorManager;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,11 +38,4 @@ public class MainActivity extends AppCompatActivity {
                 .replace(R.id.container, ListOfSensorsFragment.newInstance())
                 .commitNow();
     }
-
-
-
-//    @Override
-//    protected void onStop() {
-//        super.onStop();
-//    }
 }
