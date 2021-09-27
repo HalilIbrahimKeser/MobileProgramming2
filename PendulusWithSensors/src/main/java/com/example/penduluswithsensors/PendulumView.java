@@ -41,13 +41,17 @@ public class PendulumView  extends View {
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
 
-        int xCenter = getWidth() / 2;
+        int xCenter = getWidth() / 2;           //540
 
-        float boundryRight = xCenter + 200;
+        int height = getHeight();
+        //canvas.he(height/2);
 
-        float boundryLeft = xCenter - 200;
 
-        Log.i("width ", String.valueOf(getWidth()));
+        float boundryRight = xCenter + 200;     //740
+
+        float boundryLeft = xCenter - 200;      //340
+
+        Log.i("Thread: Width ", String.valueOf(getWidth()));
 
         //Log.i("boundry ", String.valueOf(boundryRight));
 
@@ -71,37 +75,42 @@ public class PendulumView  extends View {
         paintThread.setStyle(Paint.Style.STROKE);
         paintThread.setStrokeWidth(3);
 
-        pathHolder.moveTo(xCenter,100);
-        pathHolder.lineTo(300,100);
-        pathHolder.moveTo(300,100);
-        pathHolder.lineTo(300,50);
-        pathHolder.moveTo(300,50);
-        pathHolder.lineTo(420,50);
-        pathHolder.moveTo(420,50);
-        pathHolder.lineTo(420,100);
-        pathHolder.moveTo(420,100);
-        pathHolder.lineTo(xCenter,100);
+        pathHolder.moveTo(xCenter,200);
+        pathHolder.lineTo(400,200);
+
+
+        pathHolder.moveTo(400,200);
+        pathHolder.lineTo(400,50);
+
+        pathHolder.moveTo(400,50);
+        pathHolder.lineTo(700,50);
+
+        pathHolder.moveTo(700,50);
+        pathHolder.lineTo(700,200);
+
+        pathHolder.moveTo(700,200);
+        pathHolder.lineTo(xCenter,200);
 
         //build path for the thread
-        pathThread.moveTo(xCenter, 100);
-        pathThread.lineTo((float) thread_x, 350);
+        pathThread.moveTo(xCenter, 200);            //540
+        pathThread.lineTo((float) thread_x, 700);   //360
 
         canvas.drawPath(pathThread, paintThread);
         canvas.drawPath(pathHolder,paintThread);
-        canvas.drawCircle(circle_x, 370, 30, paintCircle);
-        canvas.drawCircle(xCenter, 100, 5, paintCircle);
+        canvas.drawCircle(circle_x, 700, 30, paintCircle);
+        canvas.drawCircle(xCenter, 200, 5, paintCircle);    //540
 
-        if (circle_x >= boundryRight) {
+        if (circle_x >= boundryRight) {             //740
             x_dir -= 5;
         }
 
-        if (circle_x <= boundryLeft) {
+        if (circle_x <= boundryLeft) {              //340
             x_dir += 5;
         }
 
         circle_x = circle_x + x_dir;
         thread_x = thread_x + x_dir;
-        Log.i("thread Line ", String.valueOf(threadNewLine));
+        Log.i("Thread: Thread Line", String.valueOf(threadNewLine));
 
         invalidate();
     }
