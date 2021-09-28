@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">PendulusWithSensors</string>
+    <string name="error_no_sensor">\"No sensor available\"</string>
 </resources>

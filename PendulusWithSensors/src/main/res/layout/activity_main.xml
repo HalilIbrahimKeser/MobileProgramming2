@@ -7,10 +7,21 @@
     tools:context=".MainActivity">
 
     <com.example.penduluswithsensors.PendulumView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:id="@+id/pendulumView"
+        android:layout_width="397dp"
+        android:layout_height="534dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="TextView"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/pendulumView" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
