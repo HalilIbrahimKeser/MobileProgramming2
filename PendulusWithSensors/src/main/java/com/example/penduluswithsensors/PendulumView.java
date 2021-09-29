@@ -22,12 +22,35 @@ public class PendulumView extends View {
     int x_dir;
     int y_dir;
     int addValue;
+    private static int counter;
     double thread_x_dir;
     float circle_x;
     float circle_y;
     double thread_x;
     float boundryRight;
     float boundryLeft;
+
+    //Sensor Data
+    private static float mMagneticField_North;
+    private static float mMagneticField_East;
+    private static float mMagneticField_Up;
+
+    private static float mAccelerometer_X;
+    private static float mAccelerometer_Y;
+    private static float mAccelerometer_Z;
+
+    private static float mGyroscope_X;
+    private static float mGyroscope_Y;
+    private static float mGyroscope_Z;
+
+    private static float mGameVector_1;
+    private static float mGameVector_2;
+    private static float mGameVector_3;
+    private static float mGameVector_4;
+
+    private static float mOrientation_Azimuth;
+    private static float mOrientation_Pitch;
+    private static float mOrientation_Roll;
 
     public PendulumView(Context context) {
         super(context);
@@ -42,6 +65,8 @@ public class PendulumView extends View {
         super(context, attrs, defStyleAttr);
         init();
     }
+
+
 
     @SuppressLint("DrawAllocation")
     @Override
@@ -101,7 +126,7 @@ public class PendulumView extends View {
         canvas.drawPath(pathThread, paintThread);
         canvas.drawPath(pathHolder,paintThread);
         canvas.drawCircle(circle_x, circle_y, 30, paintCircle);
-        canvas.drawCircle(xCenter, top_y, 5, paintCircle);    //540
+        canvas.drawCircle(xCenter, top_y, 10, paintCircle);    //540
 
         addValue = 5;
         if (circle_x >= boundryRight) {             //740
@@ -111,25 +136,47 @@ public class PendulumView extends View {
             x_dir += addValue;
         }
 
-        Fragment sensorFragment = new MainFragment();
-        //sensorFragment.
-        circle_x = circle_x + x_dir;
-        thread_x = thread_x + x_dir;
+        circle_x = circle_x + x_dir + mAccelerometer_X;
+        thread_x = thread_x + x_dir + mAccelerometer_X;
         Log.i("PENDULUM: Thread Line", String.valueOf(threadNewLine));
 
         invalidate();
     }
 
-    public static void sendData(float[] values) {
-        for (int position = 0; position <= values.length; position++ ){
-            StringBuilder stringBuilder = new StringBuilder();
-            stringBuilder.append(values[position]);
-        }
+    public static void sendMagneticFieldData(float[] values) {
+        mMagneticField_North = values[0];
+        mMagneticField_East = values[1];
+        mMagneticField_Up = values[2];
+    }
+
+    public static void sendGameRotationData(float[] values) {
+        mGameVector_1 = values[0];
+        mGameVector_2 = values[1];
+        mGameVector_3 = values[2];
+        mGameVector_4 = values[3];
+    }
+
+    public static void sendAccelerometerData(float[] values) {
+        mAccelerometer_X = values[0];
+        mAccelerometer_Y = values[1];
+        mAccelerometer_Z = values[2];
     }
 
     public static void sendGyroscopeData(float[] values) {
-
+        mGyroscope_X = values[0];
+        mGyroscope_Y = values[1];
+        mGyroscope_Z = values[2];
     }
+
+    public static void sendOrientationData(float[] values) {
+        mOrientation_Azimuth = values[0];
+        mOrientation_Pitch = values[1];
+        mOrientation_Roll = values[2];
+        counter = 0;
+        MainFragment.updateCounter();
+    }
+
+
 
     public void init() {
         x_dir = 5;

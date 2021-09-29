@@ -1,4 +1,6 @@
 package com.example.penduluswithsensors;
+//https://github.com/google-developer-training/android-advanced/blob/master/SensorListeners/app/src/main/java/com/example/android/sensorlisteners/MainActivity.java
+//Bygget på koden ovenfor fra github
 
 import android.content.Context;
 import android.hardware.Sensor;
@@ -6,6 +8,7 @@ import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,7 +20,10 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import com.example.penduluswithsensors.databinding.MainFragmentBinding;
 
+import java.text.CollationElementIterator;
+
 public class MainFragment extends Fragment implements SensorEventListener {
+    private static final float ALPHA = (float) 0.25;
     Context context;
     private MainFragmentBinding binding;
 
@@ -33,9 +39,11 @@ public class MainFragment extends Fragment implements SensorEventListener {
 
     float[] mGravity;
     float[] mGeomagnetic;
+    public static int mCounter;
+    protected static TextView mTextCounter;
 
-    private TextView mTextValues;
-    private TextView mTextError;
+    private TextView mTextValues, mTextName, mTextValues1, mTextName1, mTextValues2, mTextName2,
+            mTextValues3, mTextName3, mTextValues4, mTextName4, mTextError;
     private Button mButtonReset;
 
     @Nullable
@@ -51,63 +59,102 @@ public class MainFragment extends Fragment implements SensorEventListener {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         context = view.getContext();
+        mCounter = 0;
 
+        mTextName= binding.tvName;
         mTextValues = binding.tvValues;
+        mTextName1= binding.tvName1;
+        mTextValues1 = binding.tvValues1;
+        mTextName2= binding.tvName2;
+        mTextValues2 = binding.tvValues2;
+        mTextName3= binding.tvName3;
+        mTextValues3 = binding.tvValues3;
+        mTextName4= binding.tvName4;
+        mTextValues4 = binding.tvValues4;
+
         mTextError = binding.tvError;
+
+        mTextCounter = binding.tvCounter;
+
         mButtonReset = binding.btnReset;
         mSensorManager = (SensorManager) requireActivity().getSystemService(Context.SENSOR_SERVICE);
 
-        //BASE SENSORS
         mMagneticFieldSensor = mSensorManager.getDefaultSensor(Sensor.TYPE_MAGNETIC_FIELD);
         mAccelerometerSensor = mSensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
-
-        //COMPOSITE SENSORS
-        //mOrientationSensor gets calculated by data from Magnetic field and Accelerometer in the method updateOrientation()
         mGyroscopeSensor = mSensorManager.getDefaultSensor(Sensor.TYPE_GYROSCOPE);
         mGameRotationVectorSensor = mSensorManager.getDefaultSensor(Sensor.TYPE_GAME_ROTATION_VECTOR);
 
         checkErrorOfSensorNorFound();
     }
 
+    public static void updateCounter() {
+        mCounter++;
+        mTextCounter.setText(String.valueOf(mCounter));
+    }
+
     @Override
     public void onSensorChanged(SensorEvent sensorEvent) {
         int sensorType = sensorEvent.sensor.getType();
-        StringBuilder stringBuilder = new StringBuilder();
 
         switch (sensorType) {
             case Sensor.TYPE_MAGNETIC_FIELD:
-                String sensorResultMagneticFiels = sensorEvent.sensor.getName() + sensorEvent.sensor.getType() + ": \n" + "North: " +
-                            sensorEvent.values[0] + ",  East: " + sensorEvent.values[1] + ",  Up: " + sensorEvent.values[2];
-                stringBuilder.append(sensorResultMagneticFiels);
                 mGeomagnetic = sensorEvent.values;
                 updateOrientation(mGravity, mGeomagnetic);
-                PendulumView.sendData(sensorEvent.values);
+
+                //Low pass filter
+                float alpha = (float) 0.25;
+                mGeomagnetic[0] = alpha * sensorEvent.values[0] + (1 - alpha) * sensorEvent.values[0];
+                mGeomagnetic[1] = alpha * sensorEvent.values[1] + (1 - alpha) * sensorEvent.values[1];
+                mGeomagnetic[2] = alpha * sensorEvent.values[2] + (1 - alpha) * sensorEvent.values[2];
+
+                //Update
+                mTextName.setText(sensorEvent.sensor.getName());
+                mTextValues.setText("North: " + mGeomagnetic[0] + "\n East: " + mGeomagnetic[1] + " \n Up: " + mGeomagnetic[2]);
+                PendulumView.sendMagneticFieldData(sensorEvent.values);
                 break;
 
             case Sensor.TYPE_ACCELEROMETER:
-                String sensorResultAccelerometer = sensorEvent.sensor.getName() +  + sensorEvent.sensor.getType() + ": \n" + "X: " +
-                            sensorEvent.values[0] + " m/s2,  Y: " + sensorEvent.values[1] + " m/s2,  Z: " + sensorEvent.values[2] + " m/s2";
-                stringBuilder.append(sensorResultAccelerometer);
                 mGravity = sensorEvent.values;
                 updateOrientation(mGravity, mGeomagnetic);
-                PendulumView.sendData(sensorEvent.values);
+
+                mTextName1.setText(sensorEvent.sensor.getName());
+                mTextValues1.setText("X: " + sensorEvent.values[0] + " m/s2,  \nY: " + sensorEvent.values[1] + " m/s2,  \nZ: " + sensorEvent.values[2] + " m/s2");
+                PendulumView.sendAccelerometerData(sensorEvent.values);
                 break;
 
             case Sensor.TYPE_GYROSCOPE:
-                String sensorGyroscope = sensorEvent.sensor.getName() + sensorEvent.sensor.getType() + ": \n" + "X: " +
-                            sensorEvent.values[0] + ",   Y: " + sensorEvent.values[1] + ",   Z: " + sensorEvent.values[2] + " ";
-                stringBuilder.append(sensorGyroscope);
-                PendulumView.sendData(sensorEvent.values);
+                mTextName2.setText(sensorEvent.sensor.getName());
+                mTextValues2.setText("X: " + sensorEvent.values[0] + "\nY: " + sensorEvent.values[1] + "\nZ: " + sensorEvent.values[2]);
+                PendulumView.sendGyroscopeData(sensorEvent.values);
                 break;
             case Sensor.TYPE_GAME_ROTATION_VECTOR:
-                String stringSensorGameRotation = sensorEvent.sensor.getName() + sensorEvent.sensor.getType() + ": \n" + "1: " +
-                        sensorEvent.values[0] + ",   2: " + sensorEvent.values[1] + ",   3: " + sensorEvent.values[2] + " ,   4: " + sensorEvent.values[3] ;
-                stringBuilder.append(stringSensorGameRotation);
-                PendulumView.sendGyroscopeData(sensorEvent.values);
+                Handler handler = new Handler();
+                handler.postDelayed(new Runnable() {
+                    public void run() {
+                        float[] gameRotation = new float[4];
+                        gameRotation = lowPass(sensorEvent.values.clone(), gameRotation);
+
+                        //Update
+                        mTextName3.setText(sensorEvent.sensor.getName());
+                        mTextValues3.setText("1: " + gameRotation[0] + ",   \n2: " + gameRotation[1] + ",   " +
+                                "\n3: " + gameRotation[2] + " ,   \n4: " + gameRotation[3] + "\n");
+                        PendulumView.sendGameRotationData(gameRotation);
+                    }
+                }, 1000);   //5 seconds//Low pass filter
                 break;
             default:
                 // do nothing
         }
+    }
+
+    protected float[] lowPass( float[] input, float[] output ) {
+        //https://github.com/Bhide/Low-Pass-Filter-To-Android-Sensors
+        if ( output == null ) return input;
+
+        for ( int i=0; i<input.length; i++ ) {
+            output[i] = output[i] + ALPHA * (input[i] - output[i]);
+        }
+        return output;
     }
 
     private void updateOrientation(float[] mGravity, float[] mGeomagnetic) {
@@ -120,9 +167,9 @@ public class MainFragment extends Fragment implements SensorEventListener {
                 float[] orientation = new float[3];
                 SensorManager.getOrientation(R, orientation);
 
-                // orientation contains: azimuth, pitch and roll
-                //mTextOrientationSensor.setText("Azimuth: " + orientation[0] + ", Pitch: " + orientation[1] + ", Roll: " + orientation[2]);
-                PendulumView.sendData(orientation);
+                mTextName4.setText("Orientation");
+                mTextValues4.setText("Azimuth: " + orientation[0] + ", \nPitch: " + orientation[1] + ", \nRoll: " + orientation[2] + " \n--------------");
+                PendulumView.sendOrientationData(orientation);
             }
         }
     }

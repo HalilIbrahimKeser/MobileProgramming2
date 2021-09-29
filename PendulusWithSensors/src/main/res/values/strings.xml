@@ -1,4 +1,10 @@
 <resources>
     <string name="app_name">PendulusWithSensors</string>
     <string name="error_no_sensor">\"No sensor available\"</string>
+    <string name="reset">Reset</string>
+    <string name="reset_values">Reset values</string>
+    <string name="values">Values:</string>
+    <string name="_00">00</string>
+
+    <string name="boundary">------</string>
 </resources>

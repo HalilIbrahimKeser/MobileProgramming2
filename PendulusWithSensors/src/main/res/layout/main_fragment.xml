@@ -11,9 +11,10 @@
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_marginTop="16dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.0">
@@ -24,10 +25,10 @@
 
 
             <TextView
-                android:id="@+id/textView2"
+                android:id="@+id/tvCounter"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Reset"
+                android:text="@string/reset"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -36,28 +37,126 @@
                 android:id="@+id/btnReset"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Reset values"
+                android:text="@string/reset_values"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textView2" />
+                app:layout_constraintTop_toBottomOf="@+id/tvCounter" />
 
             <TextView
-                android:id="@+id/tvError"
+                android:id="@+id/tvName"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Values: "
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="8dp"
+                android:text="@string/values"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/btnReset" />
+
+            <TextView
+                android:id="@+id/tvName1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="32dp"
+                android:text="@string/values"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tvName" />
+
+            <TextView
+                android:id="@+id/tvName2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="32dp"
+                android:text="@string/values"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tvName1" />
+
+            <TextView
+                android:id="@+id/tvName3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="32dp"
+                android:text="@string/values"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tvName2" />
+
+            <TextView
+                android:id="@+id/tvName4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="45dp"
+                android:text="@string/values"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tvName3" />
 
             <TextView
                 android:id="@+id/tvValues"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="24dp"
-                android:text="00"
+                android:layout_marginEnd="16dp"
+                android:text="@string/_00"
+                app:layout_constraintBaseline_toBaselineOf="@+id/tvName"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/tvError"
-                app:layout_constraintTop_toBottomOf="@+id/btnReset" />
+                app:layout_constraintStart_toEndOf="@+id/tvName" />
+
+            <TextView
+                android:id="@+id/tvValues1"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="24dp"
+                android:layout_marginEnd="16dp"
+                android:text="@string/_00"
+                app:layout_constraintBaseline_toBaselineOf="@+id/tvName1"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/tvName1" />
+
+            <TextView
+                android:id="@+id/tvValues2"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="24dp"
+                android:layout_marginEnd="16dp"
+                android:text="@string/_00"
+                app:layout_constraintBaseline_toBaselineOf="@+id/tvName2"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/tvName2" />
+
+            <TextView
+                android:id="@+id/tvValues3"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="24dp"
+                android:layout_marginEnd="16dp"
+                android:text="@string/_00"
+                app:layout_constraintBaseline_toBaselineOf="@+id/tvName3"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/tvName3" />
+
+            <TextView
+                android:id="@+id/tvValues4"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="24dp"
+                android:layout_marginEnd="16dp"
+                android:text="@string/_00"
+                app:layout_constraintBaseline_toBaselineOf="@+id/tvName4"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/tvName4" />
+
+            <TextView
+                android:id="@+id/tvError"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="32dp"
+                android:text="@string/boundary"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tvName4" />
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>
 
