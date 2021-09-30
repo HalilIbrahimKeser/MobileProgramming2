@@ -40,6 +40,10 @@ public class MainFragment extends Fragment implements SensorEventListener {
     float[] mGravity;
     float[] mGeomagnetic;
     public static int mCounter;
+    public static float boundryLeftMain;
+    public static float boundryRightMain;
+    public static float addValueMain;
+    public static float x_dirMain;
     protected static TextView mTextCounter;
 
     private TextView mTextValues, mTextName, mTextValues1, mTextName1, mTextValues2, mTextName2,
@@ -53,7 +57,6 @@ public class MainFragment extends Fragment implements SensorEventListener {
         binding = MainFragmentBinding.inflate(inflater, container, false);
         return binding.getRoot();
     }
-
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
@@ -87,9 +90,16 @@ public class MainFragment extends Fragment implements SensorEventListener {
         checkErrorOfSensorNorFound();
     }
 
+    public static void sendData(float boundryLeft, float boundryRight, float addValue, float x_dir) {
+        boundryLeftMain = boundryLeft;
+        boundryRightMain = boundryRight;
+        addValueMain = addValue;
+        x_dirMain = x_dir;
+    }
+
     public static void updateCounter() {
-        mCounter++;
-        mTextCounter.setText(String.valueOf(mCounter));
+        //mCounter++;
+        mTextCounter.setText(String.valueOf(boundryLeftMain) + ", " + String.valueOf(boundryRightMain) +  ", " + String.valueOf(addValueMain)+ ", " + String.valueOf(x_dirMain));
     }
 
     @Override
@@ -128,19 +138,14 @@ public class MainFragment extends Fragment implements SensorEventListener {
                 PendulumView.sendGyroscopeData(sensorEvent.values);
                 break;
             case Sensor.TYPE_GAME_ROTATION_VECTOR:
-                Handler handler = new Handler();
-                handler.postDelayed(new Runnable() {
-                    public void run() {
-                        float[] gameRotation = new float[4];
-                        gameRotation = lowPass(sensorEvent.values.clone(), gameRotation);
+                float[] gameRotation = new float[4];
+                gameRotation = lowPass(sensorEvent.values.clone(), gameRotation);
 
-                        //Update
-                        mTextName3.setText(sensorEvent.sensor.getName());
-                        mTextValues3.setText("1: " + gameRotation[0] + ",   \n2: " + gameRotation[1] + ",   " +
+                //Update
+                mTextName3.setText(sensorEvent.sensor.getName());
+                mTextValues3.setText("1: " + gameRotation[0] + ",   \n2: " + gameRotation[1] + ",   " +
                                 "\n3: " + gameRotation[2] + " ,   \n4: " + gameRotation[3] + "\n");
-                        PendulumView.sendGameRotationData(gameRotation);
-                    }
-                }, 1000);   //5 seconds//Low pass filter
+                PendulumView.sendGameRotationData(gameRotation);
                 break;
             default:
                 // do nothing

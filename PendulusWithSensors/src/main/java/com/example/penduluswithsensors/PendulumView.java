@@ -19,9 +19,9 @@ public class PendulumView extends View {
     Path pathThread,pathHolder;
     float circlePositionX = 0;
     float threadPositionX = 0;
-    int x_dir;
-    int y_dir;
-    int addValue;
+    float x_dir;
+    float y_dir;
+    float addValue;
     private static int counter;
     double thread_x_dir;
     float circle_x;
@@ -29,6 +29,10 @@ public class PendulumView extends View {
     double thread_x;
     float boundryRight;
     float boundryLeft;
+    float boundryRightOriginal;
+    float boundryLeftOriginal;
+    float tempBoundryRight;
+    float tempBoundryLeft;
 
     //Sensor Data
     private static float mMagneticField_North;
@@ -76,6 +80,8 @@ public class PendulumView extends View {
         int xCenter = getWidth() / 2;           //540
         int yHeight = getHeight();
 
+        boundryRightOriginal =(float) ((getWidth() / 2.0) + 200);     //754
+        boundryLeftOriginal = (float) ((getWidth() / 2.0) - 200);      //354
         boundryRight = xCenter + 200;     //740
         boundryLeft = xCenter - 200;      //340
 
@@ -128,20 +134,40 @@ public class PendulumView extends View {
         canvas.drawCircle(circle_x, circle_y, 30, paintCircle);
         canvas.drawCircle(xCenter, top_y, 10, paintCircle);    //540
 
+        calculateSensors();
+
         addValue = 5;
         if (circle_x >= boundryRight) {             //740
-            x_dir -= addValue;
+            x_dir = -5;
         }
         if (circle_x <= boundryLeft) {              //340
-            x_dir += addValue;
+            x_dir = 5;
         }
 
-        circle_x = circle_x + x_dir + mAccelerometer_X;
-        thread_x = thread_x + x_dir + mAccelerometer_X;
+        circle_x = circle_x + x_dir;
+        thread_x = thread_x + x_dir;
         Log.i("PENDULUM: Thread Line", String.valueOf(threadNewLine));
 
+        MainFragment.sendData(boundryLeft, boundryRight, circle_x, x_dir);
+
         invalidate();
+
     }
+
+    private void calculateSensors() {
+        if (mAccelerometer_X == 0) {
+            boundryLeft = boundryLeftOriginal;
+            boundryRight = boundryRightOriginal;
+        } else if (mAccelerometer_X > 0 && mAccelerometer_X < 9.81) {
+            boundryLeft = boundryLeft - (mAccelerometer_X * 35);
+            boundryRight = boundryRight - (mAccelerometer_X * 35);
+        } else if (mAccelerometer_X < 0 && mAccelerometer_X > (-9.81)) {
+            boundryLeft = boundryLeft + (mAccelerometer_X * 35);
+            boundryRight = boundryRight + (mAccelerometer_X * 35);
+        }
+        MainFragment.sendData(boundryLeft, boundryRight, addValue, x_dir);
+    }
+
 
     public static void sendMagneticFieldData(float[] values) {
         mMagneticField_North = values[0];
@@ -175,7 +201,6 @@ public class PendulumView extends View {
         counter = 0;
         MainFragment.updateCounter();
     }
-
 
 
     public void init() {
