@@ -137,12 +137,22 @@ public class PendulumView extends View {
         calculateSensors();
 
         addValue = 5;
-        if (circle_x >= boundryRight) {             //740
-            x_dir = -5;
+        if (mAccelerometer_Y >= 0) {
+            if (circle_x >= boundryRight) {             //740
+                x_dir = -5;
+            }
+            if (circle_x <= boundryLeft) {              //340
+                x_dir = 5;
+            }
+        } else if (mAccelerometer_Y < 0) {
+            if (circle_x >= boundryRight) {             //740
+                x_dir = -1;
+            }
+            if (circle_x <= boundryLeft) {              //340
+                x_dir = 1;
+            }
         }
-        if (circle_x <= boundryLeft) {              //340
-            x_dir = 5;
-        }
+
 
         circle_x = circle_x + x_dir;
         thread_x = thread_x + x_dir;
@@ -159,11 +169,11 @@ public class PendulumView extends View {
             boundryLeft = boundryLeftOriginal;
             boundryRight = boundryRightOriginal;
         } else if (mAccelerometer_X > 0 && mAccelerometer_X < 9.81) {
-            boundryLeft = boundryLeft - (mAccelerometer_X * 35);
-            boundryRight = boundryRight - (mAccelerometer_X * 35);
+            boundryLeft = (float) (boundryLeft - (mAccelerometer_X * 36.1));
+            boundryRight = (float) (boundryRight - (mAccelerometer_X * 36.1));
         } else if (mAccelerometer_X < 0 && mAccelerometer_X > (-9.81)) {
-            boundryLeft = boundryLeft + (mAccelerometer_X * 35);
-            boundryRight = boundryRight + (mAccelerometer_X * 35);
+            boundryLeft = (float) (boundryLeft - (mAccelerometer_X * 36.1));
+            boundryRight = (float) (boundryRight - (mAccelerometer_X * 36.1));
         }
         MainFragment.sendData(boundryLeft, boundryRight, addValue, x_dir);
     }
