@@ -10,6 +10,7 @@
         android:id="@+id/pendulumView"
         android:layout_width="403dp"
         android:layout_height="439dp"
+        android:onClick="dropTheCircle"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
