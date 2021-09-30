@@ -1,5 +1,7 @@
 package com.example.penduluswithsensors;
 
+//Halil Ibrahim Keser
+
 //Start kode er hentet fra denne siden. Så har jeg bygget på den med sensorer, endret endel på mainfragment som har sensorer fra forrige oppgave.
 //https://steemit.com/utopian-io/@ideba/demonstrate-simple-pendulum-with-android-studio
 
@@ -193,6 +195,7 @@ public class PendulumView extends View {
         //PHONE POSITION CHECK
         //BOUNDARY HIT CHECK
         if ((mOrientation_Azimuth > 0.2 || mOrientation_Azimuth < (-0.2)) && !drop) {
+
             if (mAccelerometer_Z >= 9.4 || mAccelerometer_Z <= (-9.4)){
                 // mAccelerometer_Z: Telefonen ligger flat
                 if (bigCircle_x >= boundryRight) {
