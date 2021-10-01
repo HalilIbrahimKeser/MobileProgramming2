@@ -86,6 +86,7 @@ public class PendulumView extends View {
         super.onDraw(canvas);
 
         //PHONE POSITION CHECK
+        //Styring av høyde på Circle
         if(mAccelerometer_Y < (-2) && mAccelerometer_Y >= (-6) && mAccelerometer_X >= 0) {
             //Telefonen lent mot venstre
             xCenter = getWidth() / 2;
@@ -198,12 +199,13 @@ public class PendulumView extends View {
 
             if (mAccelerometer_Z >= 9.4 || mAccelerometer_Z <= (-9.4)){
                 // mAccelerometer_Z: Telefonen ligger flat
+                // Circle beveger seg saktere
                 if (bigCircle_x >= boundryRight) {
-                    x_dir = -2;
+                    x_dir = -4;
                     bigCircle_y -= 300;
                 }
                 if (bigCircle_x <= boundryLeft) {
-                    x_dir = 2;
+                    x_dir = 4;
                     bigCircle_y -= 300;
                 }
             } else {
@@ -211,6 +213,7 @@ public class PendulumView extends View {
                     // mAccelerometer_Y: Telefonens øvre del går max 90 grader mot begge sider.
                     // mAccelerometer_Y: Toppen av telefonen ligger i den øvre delen av 180 graders vinkelen.
                     // mAccelerometer_Z: Telefonen ligger ikke flat
+                    // Circle beveger seg fortere
                     if (bigCircle_x >= boundryRight) {
                         x_dir = -8;
                     }
@@ -222,12 +225,13 @@ public class PendulumView extends View {
                     // Telefonen er opp ned
                     // Toppen av telefonen ligger i den nedre delen av 180 graders vinkelen.
                     // mAccelerometer_Z: Telefonen ligger ikke flat
+                    // Circle beveger seg litt fortere
                     if (bigCircle_x >= boundryRight) {
-                        x_dir = -4;
+                        x_dir = -6;
                         bigCircle_y -= 300;
                     }
                     if (bigCircle_x <= boundryLeft) {
-                        x_dir = 4;
+                        x_dir = 6;
                         bigCircle_y -= 300;
                     }
                 }

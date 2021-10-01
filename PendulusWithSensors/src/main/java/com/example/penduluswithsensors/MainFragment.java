@@ -39,7 +39,7 @@ public class MainFragment extends Fragment implements SensorEventListener {
     protected static TextView mTextCounter1;
 
     private TextView mTextValues, mTextName, mTextValues1, mTextName1, mTextValues2, mTextName2,
-            mTextValues3, mTextName3, mTextValues4, mTextName4, mTextError;
+            mTextValues3, mTextName3, mTextError;
     private Button mButtonReset;
 
 
